@@ -3,7 +3,7 @@ using WebApi.Models;
 
 namespace WebApi.Repository
 {
-    internal interface IExampleRepository
+    public  interface IExampleRepository
     {
         Example GetExample(int id);
 
@@ -11,7 +11,7 @@ namespace WebApi.Repository
 
         void CreateExample(Example example);
 
-        void UpdateExample( Example example);
+        void UpdateExample(Example example);
 
         void Delete(Example example);
     }

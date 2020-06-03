@@ -14,6 +14,7 @@ using System.Linq;
 using System.Net.Mime;
 using WebApi.Data;
 using WebApi.Repository;
+using WebApi.Services;
 
 namespace WebApi
 {
@@ -31,9 +32,13 @@ namespace WebApi
         {
             services.AddControllers();
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddTransient<IExampleRepository, ExampleRepository>();
             services.AddHealthChecks()
               .AddSqlServer(Configuration.GetConnectionString("DefaultConnection"), name: "baseSql");
+
+            services.AddTransient<IExampleRepository, ExampleRepository>();
+            services.AddTransient<IExampleService, ExampleService>();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
