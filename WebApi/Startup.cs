@@ -12,6 +12,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using WebApi.Data;
+using WebApi.Models;
+using WebApi.Repository;
 
 namespace WebApi
 {
@@ -29,6 +31,7 @@ namespace WebApi
         {
             services.AddControllers();
             services.AddDbContext<ApplicationDbContext>(options=> options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddTransient<IExampleRepository,ExampleRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
