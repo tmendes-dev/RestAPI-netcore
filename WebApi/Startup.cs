@@ -33,14 +33,21 @@ namespace WebApi
         {
             services.AddControllers();
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddHealthChecks()
-              .AddSqlServer(Configuration.GetConnectionString("DefaultConnection"), name: "baseSql");
 
             services.AddTransient<IExampleRepository, ExampleRepository>();
             services.AddTransient<IExampleService, ExampleService>();
-            services.AddSingleton<ExampleController>();
 
+            services.AddHealthChecks().AddSqlServer(Configuration.GetConnectionString("DefaultConnection"), name: "baseSql");
 
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("WebApiSpec", new Microsoft.OpenApi.Models.OpenApiInfo()
+                {
+                    Title = "Web API",
+                    Description = "",
+                    Version = "1"
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,6 +60,12 @@ namespace WebApi
 
             app.UseHttpsRedirection();
 
+            app.UseSwagger();
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/WebApiSpec/swagger.json", "WebApiSpec");
+            });
+
             app.UseRouting();
 
             app.UseAuthorization();
@@ -61,7 +74,6 @@ namespace WebApi
             {
                 endpoints.MapControllers();
             });
-
 
             // Ativando o middlweare de Health Check
             //app.UseHealthChecks("/status");
@@ -95,6 +107,9 @@ namespace WebApi
 
             // Ativa o dashboard para a visualização da situação de cada Health Check
             app.UseHealthChecksUI();
+
+
+
         }
     }
 }

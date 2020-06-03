@@ -5,14 +5,14 @@ namespace WebApi.Services
 {
     public interface IExampleService
     {
-        List<Example> GetExamples();
+        public List<Example> GetExamples();
 
-        Example GetExample(int id);
+        public Example GetExample(int id);
 
-        void CreateExample(Example example);
+        public  void CreateExample(Example example);
 
-        void UpdateExample( Example example);
+        public void UpdateExample( Example example);
 
-        void Delete(int id);
+        public void Delete(int id);
     }
 }

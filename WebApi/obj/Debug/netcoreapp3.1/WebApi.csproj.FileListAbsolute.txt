@@ -158,8 +158,6 @@ C:\Users\Thomas\source\repos\WebApi\WebApi\bin\Debug\netcoreapp3.1\runtimes\win-
 C:\Users\Thomas\source\repos\WebApi\WebApi\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\e_sqlite3.dll
 C:\Users\Thomas\source\repos\WebApi\WebApi\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\e_sqlite3.dll
 C:\Users\Thomas\source\repos\WebApi\WebApi\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\e_sqlite3.dll
-C:\Users\Thomas\source\repos\WebApi\WebApi\obj\Debug\netcoreapp3.1\WebApi.csproj.CoreCompileInputs.cache
-C:\Users\Thomas\source\repos\WebApi\WebApi\obj\Debug\netcoreapp3.1\WebApi.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Thomas\source\repos\WebApi\WebApi\bin\Debug\netcoreapp3.1\HealthChecks.SqlServer.dll
 C:\Users\Thomas\source\repos\WebApi\WebApi\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.JsonWebTokens.dll
 C:\Users\Thomas\source\repos\WebApi\WebApi\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Logging.dll
@@ -167,3 +165,10 @@ C:\Users\Thomas\source\repos\WebApi\WebApi\bin\Debug\netcoreapp3.1\Microsoft.Ide
 C:\Users\Thomas\source\repos\WebApi\WebApi\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\Thomas\source\repos\WebApi\WebApi\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
 C:\Users\Thomas\source\repos\WebApi\WebApi\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\Thomas\source\repos\WebApi\WebApi\obj\Debug\netcoreapp3.1\WebApi.csproj.CoreCompileInputs.cache
+C:\Users\Thomas\source\repos\WebApi\WebApi\obj\Debug\netcoreapp3.1\WebApi.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Thomas\source\repos\WebApi\WebApi\obj\Debug\netcoreapp3.1\WebApi.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Thomas\source\repos\WebApi\WebApi\bin\Debug\netcoreapp3.1\Microsoft.OpenApi.dll
+C:\Users\Thomas\source\repos\WebApi\WebApi\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\Thomas\source\repos\WebApi\WebApi\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\Thomas\source\repos\WebApi\WebApi\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll

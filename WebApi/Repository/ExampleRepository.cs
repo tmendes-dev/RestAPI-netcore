@@ -41,7 +41,11 @@ namespace WebApi.Repository
 
         public void UpdateExample( Example example)
         {
-            _context.Examples.Update(example);
+           var obj =  _context.Examples.Find(example.ID);
+            obj.Name = example.Name;
+            obj.Date = example.Date;
+            obj.Available = example.Available;
+            obj.Quantity = example.Quantity;
             _context.SaveChanges();
         }
     }

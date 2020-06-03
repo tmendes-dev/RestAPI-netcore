@@ -5,20 +5,19 @@ using WebApi.Services;
 
 namespace WebApi.Controllers
 {
-    [Route("Example")]
+    [Route("Examples")]
     [ApiController]
-    public class ExampleController : ControllerBase
+    public class ExamplesController : ControllerBase
     {
         private IExampleService _exampleService;
 
-        public ExampleController(IExampleService exampleService)
+        public ExamplesController(IExampleService exampleService)
         {
             _exampleService = exampleService;
         }
 
-        [HttpGet("{Id:int}")]
-        [Route("Get")]
-        public IActionResult Get(int Id)
+        [HttpGet("{Id}", Name = "GetExampleById")]
+        public IActionResult GetExample(int Id)
         {
             if (!ModelState.IsValid)
             {
@@ -74,7 +73,7 @@ namespace WebApi.Controllers
             {
                 return NotFound(appException.Message);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return StatusCode(500);
             }
@@ -104,8 +103,7 @@ namespace WebApi.Controllers
             }
         }
 
-        [HttpDelete("{Id:int}")]
-        [Route("Delete")]
+        [HttpDelete("{Id:int}",Name = "DeleteExample")]
         public IActionResult Delete(int Id)
         {
             if (!ModelState.IsValid)
@@ -123,7 +121,7 @@ namespace WebApi.Controllers
                 return NotFound(appException.Message);
             }
             catch (Exception)
-            {m
+            {
                 return StatusCode(500);
             }
         }
