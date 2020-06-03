@@ -38,13 +38,14 @@ namespace WebApi
             services.AddTransient<IExampleService, ExampleService>();
 
             services.AddHealthChecks().AddSqlServer(Configuration.GetConnectionString("DefaultConnection"), name: "baseSql");
+            services.AddHealthChecksUI();
 
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("WebApiSpec", new Microsoft.OpenApi.Models.OpenApiInfo()
                 {
                     Title = "Web API",
-                    Description = "",
+                    Description = "API .NetCore 3.1, utilizando HealthChecks, Swagger",
                     Version = "1"
                 });
             });
