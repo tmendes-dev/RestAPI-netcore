@@ -11,13 +11,14 @@ namespace WebApi.Controllers
     [ApiController]
     public class ExampleController : ControllerBase
     {
+
         [HttpGet]
         [Route("GetExamples")]
         public List<Example> GetExamples()
         {
             try
             {
-                return new List<Example>() { new Example() {ID= 1,Date = DateTime.Now,Available= true,Name="Get Test",Quantity=1 } };
+                return new List<Example>();
             }
             catch (Exception)
             {
