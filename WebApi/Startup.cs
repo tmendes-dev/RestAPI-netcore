@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using System;
 using System.Linq;
 using System.Net.Mime;
+using WebApi.Controllers;
 using WebApi.Data;
 using WebApi.Repository;
 using WebApi.Services;
@@ -37,6 +38,7 @@ namespace WebApi
 
             services.AddTransient<IExampleRepository, ExampleRepository>();
             services.AddTransient<IExampleService, ExampleService>();
+            services.AddSingleton<ExampleController>();
 
 
         }

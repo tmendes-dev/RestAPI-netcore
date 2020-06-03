@@ -3,7 +3,7 @@ using WebApi.Models;
 
 namespace WebApi.Services
 {
-    internal interface IExampleService
+    public interface IExampleService
     {
         List<Example> GetExamples();
 
@@ -11,7 +11,7 @@ namespace WebApi.Services
 
         void CreateExample(Example example);
 
-        void UpdateExample(int Id, Example example);
+        void UpdateExample( Example example);
 
         void Delete(int id);
     }

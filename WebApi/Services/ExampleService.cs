@@ -56,9 +56,9 @@ namespace WebApi.Services
             return result;
         }
 
-        public void UpdateExample(int id, Example example)
+        public void UpdateExample( Example example)
         {
-            Example result = _respository.GetExample(id);
+            Example result = _respository.GetExample(example.ID);
 
             if (result == null)
             {
