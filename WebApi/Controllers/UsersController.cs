@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using WebApi.Models;
+using WebApi.Models.Dtos;
 using WebApi.Repository;
 
 namespace WebApi.Controllers
@@ -19,7 +20,7 @@ namespace WebApi.Controllers
         }
         [AllowAnonymous]
         [HttpPost("Authenticate")]
-        public IActionResult Authenticate([FromBody] User model)
+        public IActionResult Authenticate([FromBody] UserDto model)
         {
             if (!ModelState.IsValid)
             {
@@ -44,7 +45,7 @@ namespace WebApi.Controllers
 
         [AllowAnonymous]
         [HttpPost("Register")]
-        public IActionResult Register([FromBody] User model)
+        public IActionResult Register([FromBody] UserDto model)
         {
             if (!ModelState.IsValid)
             {
