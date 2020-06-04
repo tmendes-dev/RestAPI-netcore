@@ -55,6 +55,8 @@ namespace WebApi
                 options.IncludeXmlComments(cmlCommentsFullPath);
 
             });
+
+            services.AddResponseCaching();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -66,6 +68,8 @@ namespace WebApi
             }
 
             app.UseHttpsRedirection();
+
+            app.UseResponseCaching();
 
             app.UseSwagger();
             app.UseSwaggerUI(options =>

@@ -46,6 +46,7 @@ namespace WebApi.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("GetAll")]
+        [ResponseCache(Duration = 30,Location =ResponseCacheLocation.Client)]
         public IActionResult GetAll(string sort)
         {
             try
