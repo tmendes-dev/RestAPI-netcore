@@ -39,6 +39,7 @@ namespace WebApi.Controllers
                 return StatusCode(500);
             }
         }
+
         /// <summary>
         /// </summary>
         /// <param name="sort">Optional Parameter Sort: You can sort by date using string parameter = asc or desc</param>
@@ -107,7 +108,33 @@ namespace WebApi.Controllers
             }
         }
 
-        [HttpDelete("{Id:int}",Name = "DeleteExample")]
+        [HttpGet]
+        [Route("Search")]
+        public IActionResult Search(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                return BadRequest("Search parameter cannot be null or empty.");
+            }
+            try
+            {
+                IQueryable<Example> result = _exampleService.Search(name);
+                if (result.Count() == 0 || result == null)
+                {
+                    return NoContent();
+                }
+                else
+                {
+                    return Ok(result);
+                }
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
+        }
+
+        [HttpDelete("{Id:int}", Name = "DeleteExample")]
         public IActionResult Delete(int Id)
         {
             if (!ModelState.IsValid)
@@ -140,7 +167,7 @@ namespace WebApi.Controllers
             }
             try
             {
-                IQueryable<Example> result =  _exampleService.Paging(pageNumber,pageSize);
+                IQueryable<Example> result = _exampleService.Paging(pageNumber, pageSize);
 
                 return Ok();
             }

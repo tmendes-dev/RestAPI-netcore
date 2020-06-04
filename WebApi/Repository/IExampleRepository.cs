@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using WebApi.Models;
 
 namespace WebApi.Repository
 {
-    public  interface IExampleRepository
+    public interface IExampleRepository
     {
         Example GetExample(int id);
 
@@ -15,5 +14,7 @@ namespace WebApi.Repository
         void UpdateExample(Example example);
 
         void Delete(Example example);
+
+        IQueryable<Example> Search(string word);
     }
 }

@@ -66,6 +66,14 @@ namespace WebApi.Services
             return result.Skip((currentPageNumber - 1) * currentPageSize).Take(currentPageSize);
         }
 
+        public IQueryable<Example> Search(string word)
+        {
+
+            IQueryable<Example> result = _respository.Search(word);
+
+            return result;
+        }
+
         public void UpdateExample(Example example)
         {
             Example result = _respository.GetExample(example.ID);

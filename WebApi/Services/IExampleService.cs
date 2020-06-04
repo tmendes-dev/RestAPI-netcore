@@ -16,5 +16,6 @@ namespace WebApi.Services
 
         public void Delete(int id);
         IQueryable<Example> Paging(int? pageNumber, int? pageSize);
+        IQueryable<Example> Search(string word);
     }
 }
