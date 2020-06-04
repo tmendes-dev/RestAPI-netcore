@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.Swagger.Annotations;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using WebApi.Models;
 using WebApi.Services;
@@ -10,7 +12,6 @@ namespace WebApi.Controllers
     [Route("Examples")]
     [ApiController]
     [Authorize]
-
     public class ExamplesController : ControllerBase
     {
         private IExampleService _exampleService;
@@ -21,6 +22,9 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("{Id}", Name = "GetExampleById")]
+        [ProducesResponseType(200,Type = typeof(Example))]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
         public IActionResult GetExample(int Id)
         {
             if (!ModelState.IsValid)
@@ -29,7 +33,7 @@ namespace WebApi.Controllers
             }
             try
             {
-                var result = _exampleService.GetExample(Id);
+                Example result = _exampleService.GetExample(Id);
 
                 return Ok(result);
             }
@@ -49,12 +53,14 @@ namespace WebApi.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("GetAll")]
-        [ResponseCache(Duration = 30,Location =ResponseCacheLocation.Client)]
+        [ProducesResponseType(200, Type = typeof(IQueryable<Example>))]
+        [ProducesResponseType(500)]
+        [ResponseCache(Duration = 30, Location = ResponseCacheLocation.Client)]
         public IActionResult GetAll(string sort)
         {
             try
             {
-                var result = _exampleService.GetExamples(sort);
+                IQueryable<Example> result = _exampleService.GetExamples(sort);
 
                 return Ok(result);
             }
@@ -66,6 +72,8 @@ namespace WebApi.Controllers
 
         [HttpPost]
         [Route("Create")]
+        [ProducesResponseType(200,Type = typeof(string))]
+        [ProducesResponseType(500)]
         public IActionResult Create([FromBody] Example example)
         {
             if (!ModelState.IsValid)
@@ -90,6 +98,9 @@ namespace WebApi.Controllers
 
         [HttpPut]
         [Route("Update")]
+        [ProducesResponseType(200, Type = typeof(string))]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
         public IActionResult Update([FromBody] Example example)
         {
             if (!ModelState.IsValid)
@@ -114,6 +125,9 @@ namespace WebApi.Controllers
 
         [HttpGet]
         [Route("Search")]
+        [ProducesResponseType(200, Type = typeof(IQueryable<Example>))]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(500)]
         public IActionResult Search(string name)
         {
             if (string.IsNullOrEmpty(name))
@@ -139,7 +153,10 @@ namespace WebApi.Controllers
         }
 
         [HttpDelete("{Id:int}", Name = "DeleteExample")]
-        [Authorize(Roles ="Admin")]
+        [Authorize(Roles = "Admin")]
+        [ProducesResponseType(200, Type = typeof(string))]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
         public IActionResult Delete(int Id)
         {
             if (!ModelState.IsValid)
@@ -164,6 +181,9 @@ namespace WebApi.Controllers
 
         [HttpGet]
         [Route("Paging")]
+        [ProducesResponseType(200, Type = typeof(IQueryable<Example>))]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
         public IActionResult Paging(int? pageNumber, int? pageSize)
         {
             if (!ModelState.IsValid)

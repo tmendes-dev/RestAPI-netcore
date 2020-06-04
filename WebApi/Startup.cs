@@ -53,10 +53,9 @@ namespace WebApi
                 options.SwaggerDoc("WebApiSpec", new Microsoft.OpenApi.Models.OpenApiInfo()
                 {
                     Title = "Web API",
-                    Description = "Rest API .NetCore 3.1, using HealthChecks, Swagger, JWT Authentication, Azure appservices",
+                    Description = "Rest API .NetCore 3.1, using HealthChecks, Swagger, JWT Authentication, Client Caching, Azure Deployment",
                     Version = "1",
-                    Contact = new OpenApiContact() { Name="Thomas Mendes",Email="tmendes.dev@gmail.com",Url = new Uri("https://www.linkedin.com/in/thomasmendes/") }
-                    
+                    Contact = new OpenApiContact() { Name = "Thomas Mendes", Email = "tmendes.dev@gmail.com", Url = new Uri("https://www.linkedin.com/in/thomasmendes/") }
                 });
                 var xmlCommentFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var cmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentFile);
@@ -121,7 +120,7 @@ namespace WebApi
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,ApplicationDbContext applicationDbContext)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ApplicationDbContext applicationDbContext)
         {
             if (env.IsDevelopment())
             {
