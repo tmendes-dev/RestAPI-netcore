@@ -13,7 +13,7 @@ namespace WebApi.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 50, nullable: false),
                     Date = table.Column<DateTime>(nullable: false),
                     Quantity = table.Column<int>(nullable: false),
                     Available = table.Column<bool>(nullable: false)
@@ -22,12 +22,30 @@ namespace WebApi.Migrations
                 {
                     table.PrimaryKey("PK_Examples", x => x.ID);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Username = table.Column<string>(nullable: true),
+                    Password = table.Column<string>(nullable: true),
+                    Role = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.ID);
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "Examples");
+
+            migrationBuilder.DropTable(
+                name: "Users");
         }
     }
 }

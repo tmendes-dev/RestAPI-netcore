@@ -1,4 +1,5 @@
 using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
@@ -8,13 +9,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using System;
 using System.IO;
 using System.Linq;
 using System.Net.Mime;
 using System.Reflection;
-using WebApi.Controllers;
+using System.Text;
 using WebApi.Data;
 using WebApi.Repository;
 using WebApi.Services;
@@ -34,10 +36,12 @@ namespace WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddTransient<IExampleRepository, ExampleRepository>();
-            services.AddTransient<IExampleService, ExampleService>();
+            services.AddScoped<IExampleRepository, ExampleRepository>();
+            services.AddScoped<IExampleService, ExampleService>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             services.AddHealthChecks().AddSqlServer(Configuration.GetConnectionString("DefaultConnection"), name: "baseSql");
             services.AddHealthChecksUI();
@@ -53,7 +57,30 @@ namespace WebApi
                 var xmlCommentFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var cmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentFile);
                 options.IncludeXmlComments(cmlCommentsFullPath);
+            });
 
+            var appSettingsSection = Configuration.GetSection("AppSettings");
+            services.Configure<AppSettings>(appSettingsSection);
+
+            var appSettings = appSettingsSection.Get<AppSettings>();
+            var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = false;
+                options.SaveToken = true;
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
             });
 
             services.AddResponseCaching();
@@ -78,7 +105,11 @@ namespace WebApi
             });
 
             app.UseRouting();
-
+            app.UseCors(x => x
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -87,7 +118,6 @@ namespace WebApi
             });
 
             // Ativando o middlweare de Health Check
-            //app.UseHealthChecks("/status");
             app.UseHealthChecks("/status",
                new HealthCheckOptions()
                {
@@ -118,9 +148,6 @@ namespace WebApi
 
             // Ativa o dashboard para a visualização da situação de cada Health Check
             app.UseHealthChecksUI();
-
-
-
         }
     }
 }

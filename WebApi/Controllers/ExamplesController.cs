@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
 using WebApi.Models;
@@ -8,6 +9,8 @@ namespace WebApi.Controllers
 {
     [Route("Examples")]
     [ApiController]
+    [Authorize]
+
     public class ExamplesController : ControllerBase
     {
         private IExampleService _exampleService;
