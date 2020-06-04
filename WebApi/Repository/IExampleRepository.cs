@@ -3,18 +3,18 @@ using WebApi.Models;
 
 namespace WebApi.Repository
 {
-    public interface IExampleRepository
+    public interface ISampleRepository
     {
-        Example GetExample(int id);
+        Sample Get(int id);
 
-        IQueryable<Example> GetExamples(string sort);
+        IQueryable<Sample> GetAll(string sort);
 
-        void CreateExample(Example example);
+        void Create(Sample example);
 
-        void UpdateExample(Example example);
+        void Update(Sample example);
 
-        void Delete(Example example);
+        void Delete(Sample example);
 
-        IQueryable<Example> Search(string word);
+        IQueryable<Sample> Search(string word);
     }
 }

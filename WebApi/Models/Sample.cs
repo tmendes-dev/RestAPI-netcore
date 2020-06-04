@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WebApi.Models
 {
-    public class Example
+    public class Sample
     {
         [Key]
         public int ID { get; set; }

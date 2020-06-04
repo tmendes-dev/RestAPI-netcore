@@ -4,7 +4,7 @@
         <name>WebApi</name>
     </assembly>
     <members>
-        <member name="M:WebApi.Controllers.ExamplesController.GetAll(System.String)">
+        <member name="M:WebApi.Controllers.SampleController.GetAll(System.String)">
             <summary>
             </summary>
             <param name="sort">Optional Parameter Sort: You can sort by date using string parameter = asc or desc</param>

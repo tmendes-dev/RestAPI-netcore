@@ -9,7 +9,7 @@ namespace WebApi.Data
         {
         }
 
-        public DbSet<Example> Examples { get; set; }
+        public DbSet<Sample> Examples { get; set; }
         public DbSet<User> Users { get; set; }
     }
 }

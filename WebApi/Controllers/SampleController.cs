@@ -9,23 +9,23 @@ using WebApi.Services;
 
 namespace WebApi.Controllers
 {
-    [Route("Examples")]
+    [Route("Samples")]
     [ApiController]
     [Authorize]
-    public class ExamplesController : ControllerBase
+    public class SampleController : ControllerBase
     {
-        private IExampleService _exampleService;
+        private ISampleService _sampleService;
 
-        public ExamplesController(IExampleService exampleService)
+        public SampleController(ISampleService sampleService)
         {
-            _exampleService = exampleService;
+            _sampleService = sampleService;
         }
 
         [HttpGet("{Id}", Name = "GetExampleById")]
-        [ProducesResponseType(200,Type = typeof(Example))]
+        [ProducesResponseType(200,Type = typeof(Sample))]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        public IActionResult GetExample(int Id)
+        public IActionResult Get(int Id)
         {
             if (!ModelState.IsValid)
             {
@@ -33,7 +33,7 @@ namespace WebApi.Controllers
             }
             try
             {
-                Example result = _exampleService.GetExample(Id);
+                Sample result = _sampleService.Get(Id);
 
                 return Ok(result);
             }
@@ -53,14 +53,14 @@ namespace WebApi.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("GetAll")]
-        [ProducesResponseType(200, Type = typeof(IQueryable<Example>))]
+        [ProducesResponseType(200, Type = typeof(IQueryable<Sample>))]
         [ProducesResponseType(500)]
         [ResponseCache(Duration = 30, Location = ResponseCacheLocation.Client)]
         public IActionResult GetAll(string sort)
         {
             try
             {
-                IQueryable<Example> result = _exampleService.GetExamples(sort);
+                IQueryable<Sample> result = _sampleService.GetAll(sort);
 
                 return Ok(result);
             }
@@ -74,7 +74,7 @@ namespace WebApi.Controllers
         [Route("Create")]
         [ProducesResponseType(200,Type = typeof(string))]
         [ProducesResponseType(500)]
-        public IActionResult Create([FromBody] Example example)
+        public IActionResult Create([FromBody] Sample example)
         {
             if (!ModelState.IsValid)
             {
@@ -82,7 +82,7 @@ namespace WebApi.Controllers
             }
             try
             {
-                _exampleService.CreateExample(example);
+                _sampleService.Create(example);
 
                 return Ok("Example created sucessfuly!");
             }
@@ -101,7 +101,7 @@ namespace WebApi.Controllers
         [ProducesResponseType(200, Type = typeof(string))]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        public IActionResult Update([FromBody] Example example)
+        public IActionResult Update([FromBody] Sample example)
         {
             if (!ModelState.IsValid)
             {
@@ -109,7 +109,7 @@ namespace WebApi.Controllers
             }
             try
             {
-                _exampleService.UpdateExample(example);
+                _sampleService.Update(example);
 
                 return Ok("Example updated sucessfuly!");
             }
@@ -125,7 +125,7 @@ namespace WebApi.Controllers
 
         [HttpGet]
         [Route("Search")]
-        [ProducesResponseType(200, Type = typeof(IQueryable<Example>))]
+        [ProducesResponseType(200, Type = typeof(IQueryable<Sample>))]
         [ProducesResponseType(204)]
         [ProducesResponseType(500)]
         public IActionResult Search(string name)
@@ -136,7 +136,7 @@ namespace WebApi.Controllers
             }
             try
             {
-                IQueryable<Example> result = _exampleService.Search(name);
+                IQueryable<Sample> result = _sampleService.Search(name);
                 if (result.Count() == 0 || result == null)
                 {
                     return NoContent();
@@ -165,7 +165,7 @@ namespace WebApi.Controllers
             }
             try
             {
-                _exampleService.Delete(Id);
+                _sampleService.Delete(Id);
 
                 return Ok("Example deleted sucessfuly!");
             }
@@ -181,7 +181,7 @@ namespace WebApi.Controllers
 
         [HttpGet]
         [Route("Paging")]
-        [ProducesResponseType(200, Type = typeof(IQueryable<Example>))]
+        [ProducesResponseType(200, Type = typeof(IQueryable<Sample>))]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
         public IActionResult Paging(int? pageNumber, int? pageSize)
@@ -192,7 +192,7 @@ namespace WebApi.Controllers
             }
             try
             {
-                IQueryable<Example> result = _exampleService.Paging(pageNumber, pageSize);
+                IQueryable<Sample> result = _sampleService.Paging(pageNumber, pageSize);
 
                 return Ok();
             }

@@ -5,30 +5,30 @@ using WebApi.Repository;
 
 namespace WebApi.Services
 {
-    public class ExampleService : IExampleService
+    public class SampleService : ISampleService
     {
-        private IExampleRepository _respository;
+        private ISampleRepository _respository;
 
-        public ExampleService(IExampleRepository respository)
+        public SampleService(ISampleRepository respository)
         {
             _respository = respository;
         }
 
-        public void CreateExample(Example example)
+        public void Create(Sample example)
         {
-            Example result = _respository.GetExample(example.ID);
+            Sample result = _respository.Get(example.ID);
 
             if (result != null)
             {
                 throw new ApplicationException("Example Already Exisits.");
             }
 
-            _respository.CreateExample(example);
+            _respository.Create(example);
         }
 
         public void Delete(int id)
         {
-            Example result = _respository.GetExample(id);
+            Sample result = _respository.Get(id);
 
             if (result == null)
             {
@@ -37,9 +37,9 @@ namespace WebApi.Services
             _respository.Delete(result);
         }
 
-        public Example GetExample(int id)
+        public Sample Get(int id)
         {
-            Example result = _respository.GetExample(id);
+            Sample result = _respository.Get(id);
 
             if (result == null)
             {
@@ -49,16 +49,16 @@ namespace WebApi.Services
             return result;
         }
 
-        public IQueryable<Example> GetExamples(string sort)
+        public IQueryable<Sample> GetAll(string sort)
         {
-            IQueryable<Example> result = _respository.GetExamples(sort);
+            IQueryable<Sample> result = _respository.GetAll(sort);
 
             return result;
         }
 
-        public IQueryable<Example> Paging(int? pageNumber, int? pageSize)
+        public IQueryable<Sample> Paging(int? pageNumber, int? pageSize)
         {
-            IQueryable<Example> result = _respository.GetExamples("");
+            IQueryable<Sample> result = _respository.GetAll("");
 
             int currentPageNumber = pageNumber ?? 1;
             int currentPageSize = pageSize ?? 5;
@@ -66,24 +66,24 @@ namespace WebApi.Services
             return result.Skip((currentPageNumber - 1) * currentPageSize).Take(currentPageSize);
         }
 
-        public IQueryable<Example> Search(string word)
+        public IQueryable<Sample> Search(string word)
         {
 
-            IQueryable<Example> result = _respository.Search(word);
+            IQueryable<Sample> result = _respository.Search(word);
 
             return result;
         }
 
-        public void UpdateExample(Example example)
+        public void Update(Sample example)
         {
-            Example result = _respository.GetExample(example.ID);
+            Sample result = _respository.Get(example.ID);
 
             if (result == null)
             {
                 throw new ApplicationException("Example does not exists.");
             }
 
-            _respository.UpdateExample(example);
+            _respository.Update(example);
         }
     }
 }

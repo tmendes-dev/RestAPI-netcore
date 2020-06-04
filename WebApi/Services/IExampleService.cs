@@ -4,18 +4,18 @@ using WebApi.Models;
 
 namespace WebApi.Services
 {
-    public interface IExampleService
+    public interface ISampleService
     {
-        public IQueryable<Example> GetExamples(string sort);
+        public IQueryable<Sample> GetAll(string sort);
 
-        public Example GetExample(int id);
+        public Sample Get(int id);
 
-        public  void CreateExample(Example example);
+        public  void Create(Sample example);
 
-        public void UpdateExample( Example example);
+        public void Update( Sample example);
 
         public void Delete(int id);
-        IQueryable<Example> Paging(int? pageNumber, int? pageSize);
-        IQueryable<Example> Search(string word);
+        IQueryable<Sample> Paging(int? pageNumber, int? pageSize);
+        IQueryable<Sample> Search(string word);
     }
 }

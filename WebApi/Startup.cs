@@ -41,8 +41,8 @@ namespace WebApi
             services.AddCors();
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddScoped<IExampleRepository, ExampleRepository>();
-            services.AddScoped<IExampleService, ExampleService>();
+            services.AddScoped<ISampleRepository, SampleRepository>();
+            services.AddScoped<ISampleService, SampleService>();
             services.AddScoped<IUserRepository, UserRepository>();
 
             services.AddHealthChecks().AddSqlServer(Configuration.GetConnectionString("DefaultConnection"), name: "baseSql");
@@ -52,8 +52,8 @@ namespace WebApi
             {
                 options.SwaggerDoc("WebApiSpec", new Microsoft.OpenApi.Models.OpenApiInfo()
                 {
-                    Title = "Web API",
-                    Description = "Rest API .NetCore 3.1, using HealthChecks, Swagger, JWT Authentication, Client Caching, Azure Deployment",
+                    Title = "Rest Api .NetCore 3.1",
+                    Description = "Simple Rest API structure using .NetCore 3.1, HealthChecks, Swagger, JWT Authentication, Client Caching, Azure Deployment",
                     Version = "1",
                     Contact = new OpenApiContact() { Name = "Thomas Mendes", Email = "tmendes.dev@gmail.com", Url = new Uri("https://www.linkedin.com/in/thomasmendes/") }
                 });
