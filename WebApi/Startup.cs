@@ -10,8 +10,10 @@ using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using System;
+using System.IO;
 using System.Linq;
 using System.Net.Mime;
+using System.Reflection;
 using WebApi.Controllers;
 using WebApi.Data;
 using WebApi.Repository;
@@ -48,6 +50,10 @@ namespace WebApi
                     Description = "API .NetCore 3.1, utilizando HealthChecks, Swagger",
                     Version = "1"
                 });
+                var xmlCommentFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var cmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentFile);
+                options.IncludeXmlComments(cmlCommentsFullPath);
+
             });
         }
 

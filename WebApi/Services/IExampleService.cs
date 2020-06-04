@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using WebApi.Models;
 
 namespace WebApi.Services
 {
     public interface IExampleService
     {
-        public List<Example> GetExamples();
+        public IQueryable<Example> GetExamples(string sort);
 
         public Example GetExample(int id);
 

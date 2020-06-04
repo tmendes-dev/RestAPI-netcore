@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using WebApi.Models;
 
 namespace WebApi.Repository
@@ -7,7 +8,7 @@ namespace WebApi.Repository
     {
         Example GetExample(int id);
 
-        List<Example> GetExamples();
+        IQueryable<Example> GetExamples(string sort);
 
         void CreateExample(Example example);
 

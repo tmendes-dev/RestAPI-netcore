@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
 using WebApi.Models;
 using WebApi.Repository;
 
@@ -49,14 +49,14 @@ namespace WebApi.Services
             return result;
         }
 
-        public List<Example> GetExamples()
+        public IQueryable<Example> GetExamples(string sort)
         {
-            List<Example> result = _respository.GetExamples();
+            IQueryable<Example> result = _respository.GetExamples(sort);
 
             return result;
         }
 
-        public void UpdateExample( Example example)
+        public void UpdateExample(Example example)
         {
             Example result = _respository.GetExample(example.ID);
 

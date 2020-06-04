@@ -33,9 +33,23 @@ namespace WebApi.Repository
             return result;
         }
 
-        public List<Example> GetExamples()
+        public IQueryable<Example> GetExamples(string sort)
         {
-            List<Example> result = _context.Examples.ToList();
+            IQueryable<Example> result ;
+
+            switch (sort)
+            {
+                case "desc":
+                    result = _context.Examples.OrderByDescending(e=> e.Date);
+                    break;
+                case "asc":
+                    result = _context.Examples.OrderBy(e => e.Date);
+                    break;
+                default:
+                    result = _context.Examples;
+                    break;
+            }
+
             return result;
         }
 

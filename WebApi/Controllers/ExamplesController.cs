@@ -38,14 +38,17 @@ namespace WebApi.Controllers
                 return StatusCode(500);
             }
         }
-
+        /// <summary>
+        /// </summary>
+        /// <param name="sort">Optional Parameter Sort: You can sort by date using string parameter = asc or desc</param>
+        /// <returns></returns>
         [HttpGet]
         [Route("GetAll")]
-        public IActionResult GetAll()
+        public IActionResult GetAll(string sort)
         {
             try
             {
-                var result = _exampleService.GetExamples();
+                var result = _exampleService.GetExamples(sort);
 
                 return Ok(result);
             }
