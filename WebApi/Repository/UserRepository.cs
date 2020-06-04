@@ -38,7 +38,8 @@ namespace WebApi.Repository
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name,user.ID.ToString())
+                    new Claim(ClaimTypes.Name,user.ID.ToString()),
+                    new Claim(ClaimTypes.Role,user.Role)
                 }),
                 Expires = DateTime.Now.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -52,12 +53,25 @@ namespace WebApi.Repository
 
         public bool IsUniqueUser(string username)
         {
-            throw new NotImplementedException();
+            User user = _context.Users.SingleOrDefault(x => x.Username == username);
+
+            if (user == null)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public User Register(string username, string password)
         {
-            throw new NotImplementedException();
+            User user = new User() { Username = username, Password = password,Role = "Admin" };
+
+            _context.Users.Add(user);
+
+            _context.SaveChanges();
+
+            return user;
         }
     }
 }

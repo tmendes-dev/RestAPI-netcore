@@ -41,5 +41,36 @@ namespace WebApi.Controllers
                 return StatusCode(500);
             }
         }
+
+        [AllowAnonymous]
+        [HttpPost("Register")]
+        public IActionResult Register([FromBody] User model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                bool exist = _userRepository.IsUniqueUser(model.Username);
+
+                if (!exist)
+                {
+                    return BadRequest(new { Message = "Username aleready exists." });
+                }
+
+                User user = _userRepository.Register(model.Username, model.Password);
+                if (user==null)
+                {
+                    return BadRequest(new { Message = "Error while registering." });
+                }
+
+                return Ok("User registered.");
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
+        }
     }
 }

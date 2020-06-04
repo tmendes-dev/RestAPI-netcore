@@ -139,6 +139,7 @@ namespace WebApi.Controllers
         }
 
         [HttpDelete("{Id:int}", Name = "DeleteExample")]
+        [Authorize(Roles ="Admin")]
         public IActionResult Delete(int Id)
         {
             if (!ModelState.IsValid)
