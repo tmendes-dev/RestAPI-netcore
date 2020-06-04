@@ -20,6 +20,9 @@ namespace WebApi.Controllers
         }
         [AllowAnonymous]
         [HttpPost("Authenticate")]
+        [ProducesResponseType(200, Type = typeof(User))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
         public IActionResult Authenticate([FromBody] UserDto model)
         {
             if (!ModelState.IsValid)
@@ -45,6 +48,9 @@ namespace WebApi.Controllers
 
         [AllowAnonymous]
         [HttpPost("Register")]
+        [ProducesResponseType(200, Type = typeof(string))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
         public IActionResult Register([FromBody] UserDto model)
         {
             if (!ModelState.IsValid)
