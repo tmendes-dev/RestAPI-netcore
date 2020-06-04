@@ -56,6 +56,16 @@ namespace WebApi.Services
             return result;
         }
 
+        public IQueryable<Example> Paging(int? pageNumber, int? pageSize)
+        {
+            IQueryable<Example> result = _respository.GetExamples("");
+
+            int currentPageNumber = pageNumber ?? 1;
+            int currentPageSize = pageSize ?? 5;
+
+            return result.Skip((currentPageNumber - 1) * currentPageSize).Take(currentPageSize);
+        }
+
         public void UpdateExample(Example example)
         {
             Example result = _respository.GetExample(example.ID);

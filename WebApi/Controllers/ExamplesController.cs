@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 using WebApi.Models;
 using WebApi.Services;
 
@@ -76,7 +77,7 @@ namespace WebApi.Controllers
             {
                 return NotFound(appException.Message);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return StatusCode(500);
             }
@@ -118,6 +119,30 @@ namespace WebApi.Controllers
                 _exampleService.Delete(Id);
 
                 return Ok("Example deleted sucessfuly!");
+            }
+            catch (ApplicationException appException)
+            {
+                return NotFound(appException.Message);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
+        }
+
+        [HttpGet]
+        [Route("Paging")]
+        public IActionResult Paging(int? pageNumber, int? pageSize)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                IQueryable<Example> result =  _exampleService.Paging(pageNumber,pageSize);
+
+                return Ok();
             }
             catch (ApplicationException appException)
             {
